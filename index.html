@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Remembering 9/11</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500&family=EB+Garamond:ital,wght@0,400;1,400&family=Montserrat:wght@500&display=swap">
+<style>
+/* Layout: a keepsake read on a phone after the visit. Text floats on a dusk-blue field with two soft beams of light; no boxes. Single fixed dark look. */
+:root {
+  --night: #0e1620;
+  --dusk: #1b2a3a;
+  --beam: rgba(196, 218, 240, 0.10);
+  --text: #eef2f6;
+  --soft: #a9b6c3;
+  --faint: rgba(238, 242, 246, 0.16);
+  --light: #cfe0f1;
+  --font-display: "Cormorant Garamond", "Times New Roman", serif;
+  --font-text: "EB Garamond", Georgia, serif;
+  --font-ui: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { background: var(--night); }
+body {
+  margin: 0; min-height: 100vh;
+  background: linear-gradient(180deg, var(--dusk) 0%, var(--night) 70%);
+  color: var(--text);
+  font-family: var(--font-text);
+  padding-inline: 22px;
+  padding-block: 56px 48px;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+.beams { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+.beams::before, .beams::after {
+  content: ""; position: absolute; top: -10%; bottom: -10%; width: 90px;
+  background: linear-gradient(180deg, var(--beam), transparent 85%);
+  filter: blur(28px);
+  animation: breathe 9s ease-in-out infinite alternate;
+}
+.beams::before { left: calc(50% - 110px); }
+.beams::after  { left: calc(50% + 20px); animation-delay: -4.5s; }
+@keyframes breathe { from { opacity: .55; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .beams::before, .beams::after { animation: none; } }
+
+main { position: relative; z-index: 1; max-width: 560px; margin: 0 auto; display: grid; gap: 44px; }
+
+header { text-align: center; display: grid; gap: 12px; }
+h1 {
+  font-family: var(--font-display); font-weight: 500;
+  font-size: clamp(2.6rem, 10vw, 3.6rem); line-height: 1; margin: 0; letter-spacing: 0.01em;
+}
+.intro { margin: 0 auto; max-width: 34ch; color: var(--soft); font-size: 1.12rem; line-height: 1.5; font-style: italic; }
+
+.tabs { display: flex; justify-content: center; gap: 22px; flex-wrap: wrap; }
+.tab {
+  background: none; border: 0; padding: 4px 0; cursor: pointer;
+  font: 500 0.78rem var(--font-ui); letter-spacing: 0.06em; color: var(--soft);
+  border-bottom: 1px solid transparent; transition: color .3s, border-color .3s;
+}
+.tab[aria-pressed="true"] { color: var(--text); border-color: var(--light); }
+.tab:hover { color: var(--text); }
+
+.story { display: grid; gap: 18px; text-align: center; min-height: 19rem; align-content: start; transition: opacity .35s ease, transform .35s ease; touch-action: pan-y; }
+.story.out { opacity: 0; transform: translateY(6px); }
+.kicker { font-family: var(--font-display); font-style: italic; font-size: 1.05rem; color: var(--light); }
+.story h2 {
+  font-family: var(--font-display); font-weight: 500; margin: 0;
+  font-size: clamp(1.9rem, 7vw, 2.5rem); line-height: 1.1; text-wrap: balance;
+}
+.story p { margin: 0 auto; font-size: 1.2rem; line-height: 1.65; max-width: 34em; text-wrap: pretty; }
+.story a {
+  justify-self: center; color: var(--light); font-size: 1rem; font-style: italic;
+  text-decoration: none; border-bottom: 1px solid var(--faint); padding-bottom: 2px; transition: border-color .3s;
+}
+.story a:hover { border-color: var(--light); }
+
+.nav { display: flex; align-items: center; justify-content: center; gap: 26px; }
+.arrow {
+  width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--faint);
+  background: transparent; color: var(--text); cursor: pointer; font-size: 1.2rem;
+  display: grid; place-items: center; transition: border-color .3s, background .3s;
+}
+.arrow:hover { border-color: var(--light); background: rgba(207,224,241,.06); }
+.count { font-family: var(--font-display); font-style: italic; font-size: 1.05rem; color: var(--soft); font-variant-numeric: tabular-nums; min-width: 5.5em; text-align: center; }
+button:focus-visible, a:focus-visible { outline: 1px solid var(--light); outline-offset: 4px; border-radius: 4px; }
+
+.keep { display: grid; gap: 6px; text-align: center; }
+.keep h3 { font-family: var(--font-display); font-weight: 500; font-size: 1.5rem; margin: 0 0 8px; }
+.keep a { color: var(--text); text-decoration: none; font-size: 1.1rem; padding-block: 6px; transition: color .3s; }
+.keep a span { display: block; color: var(--soft); font-style: italic; font-size: 0.95rem; }
+.keep a:hover { color: var(--light); }
+
+.divider { width: 40px; height: 1px; background: var(--faint); margin: 0 auto; border: 0; }
+
+footer { text-align: center; display: grid; gap: 10px; color: var(--soft); }
+footer .tap { font-style: italic; font-size: 1.1rem; color: var(--text); }
+footer small { font-size: 0.82rem; line-height: 1.5; }
+footer a { color: var(--soft); }
+</style>
+</head>
+<body>
+
+<div class="beams" aria-hidden="true"></div>
+
+<main>
+  <header>
+    <h1>Remembering 9/11</h1>
+    <p class="intro">The stories you found at the Memorial &amp; Museum, to carry home with you.</p>
+  </header>
+
+  <div class="tabs" role="group" aria-label="Choose stories">
+    <button class="tab" id="t-all" data-cat="all" aria-pressed="true">All</button>
+    <button class="tab" id="t-stories" data-cat="stories" aria-pressed="false">Stories</button>
+    <button class="tab" id="t-memorial" data-cat="memorial" aria-pressed="false">The Memorial</button>
+    <button class="tab" id="t-museum" data-cat="museum" aria-pressed="false">The Museum</button>
+  </div>
+
+  <article class="story" id="story" aria-live="polite">
+    <div class="kicker" id="s-kicker">A story</div>
+    <h2 id="s-title">The man in the red bandanna</h2>
+    <p id="s-body">Welles Crowther, a 24-year-old equities trader and volunteer firefighter, guided people down from the South Tower's 78th-floor sky lobby with a red bandanna over his face. He went back up to help more. His bandanna is in the Museum.</p>
+    <a id="s-link" href="https://www.911memorial.org/museum" target="_blank" rel="noopener">Read more</a>
+  </article>
+
+  <div class="nav">
+    <button class="arrow" id="prev" aria-label="Previous story">‹</button>
+    <span class="count" id="count"></span>
+    <button class="arrow" id="next" aria-label="Next story">›</button>
+  </div>
+
+  <hr class="divider">
+
+  <section class="keep">
+    <h3>Keep remembering</h3>
+    <a href="https://names.911memorial.org/" target="_blank" rel="noopener">Look up a name<span>Learn about someone whose name you saw at the pools</span></a>
+    <a href="https://www.911memorial.org/blog" target="_blank" rel="noopener">More stories<span>New stories from the Museum's collection</span></a>
+    <a href="https://www.911memorial.org/visit/memorial/survivor-tree" target="_blank" rel="noopener">The Survivor Tree<span>How it lived, and where its seedlings grow</span></a>
+    <a href="https://www.911memorial.org/learn/youth-and-families/talking-children-about-terrorism" target="_blank" rel="noopener">Talking with children<span>Help for the conversations after your visit</span></a>
+    <a href="https://www.911memorial.org/connect/commemoration" target="_blank" rel="noopener">Each September 11<span>The reading of the names and the Tribute in Light</span></a>
+    <a href="https://www.911memorial.org/support" target="_blank" rel="noopener">Support the Memorial<span>Help keep these stories told</span></a>
+  </section>
+
+  <hr class="divider">
+
+  <footer>
+    <div class="tap">Tap your Epoch bracelet again for another story.</div>
+    <small>A keepsake by <a href="https://www.epoch-us.com/" target="_blank" rel="noopener">Epoch</a>. Not affiliated with or endorsed by the National September 11 Memorial &amp; Museum. For official information, visit <a href="https://www.911memorial.org" target="_blank" rel="noopener">911memorial.org</a>.</small>
+  </footer>
+</main>
+
+<script>
+const M = "https://www.911memorial.org", NAMES = "https://names.911memorial.org/";
+const FACTS = [
+  // Stories
+  { c: "stories", t: "The man in the red bandanna", b: "Welles Crowther, a 24-year-old equities trader and volunteer firefighter, guided people down from the South Tower's 78th-floor sky lobby with a red bandanna over his face. He went back up to help more. His bandanna is in the Museum.", l: M + "/museum" },
+  { c: "stories", t: "Stairwell B", b: "When the North Tower fell, a small group survived inside a section of Stairwell B: firefighters from Ladder Company 6 and others, including Josephine Harris, a bookkeeper they had stopped to help down the stairs.", l: M + "/blog" },
+  { c: "stories", t: "Two strangers on the 81st floor", b: "Brian Clark heard Stanley Praimnath calling for help from behind a collapsed wall in the South Tower. Clark pulled him through, and the two walked down together, among the very few to escape from above where the plane hit. They stayed friends for life.", l: M + "/blog" },
+  { c: "stories", t: "Victim 0001", b: "Father Mychal Judge, the beloved chaplain of the New York City Fire Department, was killed in the North Tower lobby while praying for rescuers. He was the first recorded death of the day.", l: NAMES },
+  { c: "stories", t: "Officer Moira Smith", b: "Moira Smith of the NYPD helped lead people out of the South Tower and was photographed guiding an injured man to safety. She went back in and was killed when the tower fell. She was the only female NYPD officer lost that day.", l: NAMES },
+  { c: "stories", t: "Captain Kathy Mazza", b: "Kathy Mazza, commanding officer of the Port Authority Police Academy, helped evacuate the North Tower. She was the first female Port Authority police officer killed in the line of duty.", l: NAMES },
+  { c: "stories", t: "The doors on the 88th floor", b: "Port Authority employees Frank De Martini and Pablo Ortiz used crowbars and flashlights to pry open jammed doors and clear blocked stairwells in the North Tower, freeing dozens of people. Both were killed when the tower collapsed.", l: NAMES },
+  { c: "stories", t: "Rick Rescorla", b: "Morgan Stanley's security chief had drilled employees on evacuation for years. On September 11 he led about 2,700 people out of the South Tower, singing to keep them calm, then went back inside. He did not survive.", l: NAMES },
+  { c: "stories", t: "The last survivor", b: "Genelle Guzman-McMillan was pulled from the rubble about 27 hours after the North Tower collapsed. She was the last person rescued alive.", l: M + "/blog" },
+  { c: "stories", t: "\"Let's roll\"", b: "On United Flight 93, passengers and crew learned by phone what had happened in New York. They voted to fight back. Todd Beamer was heard telling the others, \"Let's roll.\" The plane came down in a field near Shanksville, Pennsylvania.", l: NAMES },
+  { c: "stories", t: "At the Pentagon", b: "184 people were killed at the Pentagon: 125 in the building and 59 aboard American Flight 77. Their names are on the Memorial's South Pool.", l: NAMES },
+  { c: "stories", t: "The boatlift", b: "With Lower Manhattan cut off, ferries, tugboats and private boats answered the call. In about nine hours they carried an estimated half a million people across the water to safety.", l: M + "/learn" },
+  { c: "stories", t: "A town that took them in", b: "When U.S. airspace closed, 38 planes were diverted to Gander, Newfoundland. The town of about 10,000 fed and housed nearly 7,000 stranded passengers for days.", l: M + "/learn" },
+  { c: "stories", t: "St. Paul's Chapel", b: "Just across from the towers, the small 18th-century chapel survived without a broken window. For months it became a place where recovery workers could eat, sleep and rest.", l: M + "/learn" },
+  { c: "stories", t: "The flag at Ground Zero", b: "On the afternoon of September 11, firefighters Dan McWilliams, George Johnson and Billy Eisengrein raised an American flag over the ruins. A photograph of that moment became one of the most recognized images of the day.", l: M + "/collection" },
+  { c: "stories", t: "Those who ran in", b: "343 New York City firefighters, 23 New York City police officers and 37 Port Authority police officers were killed responding to the attacks.", l: NAMES },
+  { c: "stories", t: "Remembering unborn children", b: "Several women killed on September 11 were expecting. On the Memorial, their names are followed by the words \"and her unborn child.\"", l: NAMES },
+  { c: "stories", t: "From more than 90 countries", b: "The people killed on September 11 came from more than 90 countries. They were office workers, travelers, flight crews, rescuers and visitors who were simply there that morning.", l: NAMES },
+  { c: "stories", t: "Before 2001", b: "On February 26, 1993, a truck bomb exploded beneath the North Tower, killing six people, including a pregnant woman. Their names are on the North Pool.", l: M + "/connect/commemoration/February26-1993" },
+  { c: "stories", t: "The recovery", b: "Workers cleared the site around the clock for more than eight months. The work formally ended on May 30, 2002, when the Last Column was carried out in silence.", l: M + "/connect/commemoration/May-30-2002" },
+  { c: "stories", t: "The Sphere", b: "Fritz Koenig's bronze sculpture stood between the Twin Towers. It was found battered but whole in the debris and now stands in Liberty Park, overlooking the Memorial.", l: M + "/memorial" },
+
+  // The Memorial
+  { c: "memorial", t: "Where the towers stood", b: "The two reflecting pools sit within the footprints of the original Twin Towers. Each is nearly an acre in size.", l: M + "/memorial" },
+  { c: "memorial", t: "Falling water", b: "Water falls about 30 feet down every side of each pool, then disappears into a smaller void at the center. They are the largest man-made waterfalls in North America.", l: M + "/memorial" },
+  { c: "memorial", t: "2,983 names", b: "Bronze parapets around the pools carry 2,983 names: the 2,977 people killed on September 11, 2001, in New York, at the Pentagon and near Shanksville, and the six killed in the 1993 bombing.", l: NAMES },
+  { c: "memorial", t: "Names that belong together", b: "The names are not alphabetical. Families and friends made more than 1,200 requests for loved ones to be placed side by side, and the Memorial honored them.", l: NAMES },
+  { c: "memorial", t: "A white rose on each birthday", b: "On each victim's birthday, a white rose is placed in their inscribed name, so no birthday passes unmarked.", l: M + "/memorial" },
+  { c: "memorial", t: "Reflecting Absence", b: "Michael Arad and Peter Walker designed the Memorial. Their design was chosen in 2004 from 5,201 entries sent from 63 countries.", l: M + "/memorial" },
+  { c: "memorial", t: "Ten years later", b: "The Memorial was dedicated on September 11, 2011, for the families of those killed. It opened to the public the next day.", l: M + "/memorial" },
+  { c: "memorial", t: "The oak trees", b: "Nearly 400 swamp white oaks shade the plaza. Their leaves turn at slightly different times each fall, like the different lives remembered there.", l: M + "/memorial" },
+  { c: "memorial", t: "The Survivor Tree", b: "In October 2001, workers found a badly burned pear tree in the rubble. It was nursed back to health in the Bronx, returned in 2010, and now blooms every spring on the plaza.", l: M + "/visit/memorial/survivor-tree" },
+  { c: "memorial", t: "Seedlings of hope", b: "Each year, seedlings from the Survivor Tree are sent to communities that have lived through tragedy, as a sign that life can go on.", l: M + "/visit/memorial/survivor-tree" },
+  { c: "memorial", t: "The Glade", b: "Dedicated in 2019, the Glade honors rescue and recovery workers and everyone who became sick or died from exposure after the attacks. Its stones are inlaid with World Trade Center steel.", l: M + "/memorial-glade" },
+  { c: "memorial", t: "Two beams of light", b: "Every September 11, 88 searchlights send two beams into the night sky over Lower Manhattan, where the towers once stood.", l: M + "/connect/commemoration/September-11-2001" },
+  { c: "memorial", t: "The reading of the names", b: "Each anniversary, family members gather at the pools and read every name aloud, pausing for silence at the moments of each attack.", l: M + "/connect/commemoration" },
+
+  // The Museum
+  { c: "museum", t: "Down to bedrock", b: "The Museum descends about 70 feet below ground, to the foundations where the Twin Towers once stood. It opened to the public on May 21, 2014.", l: M + "/museum" },
+  { c: "museum", t: "The slurry wall", b: "Part of the original retaining wall that held back the Hudson River survived the collapse. You can see it standing in Foundation Hall.", l: M + "/museum" },
+  { c: "museum", t: "The Last Column", b: "This 36-foot steel column was the last piece removed from Ground Zero. Recovery workers and families covered it in messages, photos and memorials.", l: M + "/connect/commemoration/May-30-2002" },
+  { c: "museum", t: "The Survivors' Stairs", b: "These outdoor stairs on Vesey Street led hundreds of people to safety. They were saved from demolition and now line the way down into the Museum.", l: M + "/museum" },
+  { c: "museum", t: "The tridents", b: "Two steel columns from the North Tower's facade, named for their three-pronged tops, rise through the Museum's glass entrance.", l: M + "/museum" },
+  { c: "museum", t: "The color of the sky", b: "Artist Spencer Finch painted 2,983 squares of blue, one for each victim, each a different shade. Together they recall the clear sky of that September morning.", l: M + "/visit/museum/exhibitions" },
+  { c: "museum", t: "No day shall erase you", b: "A line from Virgil, \"No day shall erase you from the memory of time,\" is spelled in letters forged from World Trade Center steel by artist Tom Joyce.", l: M + "/museum" },
+  { c: "museum", t: "In Memoriam", b: "A portrait honors each person killed. Visitors can hear remembrances recorded by their families and friends.", l: M + "/visit/museum/exhibitions" },
+  { c: "museum", t: "Everyday objects", b: "The collection holds things large and small: a fire truck, steel from the towers, shoes, wallets, voicemails and handwritten missing-person posters.", l: M + "/collection" }
+];
+const KICKER = { memorial: "At the Memorial", museum: "In the Museum", stories: "A story" };
+
+let cat = "all", order = [], pos = 0, busy = false;
+const $ = id => document.getElementById(id);
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function pool() { return FACTS.filter(f => cat === "all" || f.c === cat); }
+function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+function paint() {
+  const list = pool(), f = list[order[pos]];
+  $("s-kicker").textContent = KICKER[f.c];
+  $("s-title").textContent = f.t;
+  $("s-body").textContent = f.b;
+  $("s-link").href = f.l;
+  $("count").textContent = `${pos + 1} of ${list.length}`;
+}
+function show(step) {
+  if (busy) return;
+  const n = order.length;
+  pos = (pos + step + n) % n;
+  if (reduce) return paint();
+  busy = true;
+  const el = $("story");
+  el.classList.add("out");
+  setTimeout(() => { paint(); el.classList.remove("out"); busy = false; }, 350);
+}
+function reset() { order = shuffle([...pool().keys()]); pos = 0; paint(); }
+
+$("next").addEventListener("click", () => show(1));
+$("prev").addEventListener("click", () => show(-1));
+document.addEventListener("keydown", e => { if (e.key === "ArrowRight") show(1); if (e.key === "ArrowLeft") show(-1); });
+let x0 = null;
+$("story").addEventListener("touchstart", e => { x0 = e.touches[0].clientX; }, { passive: true });
+$("story").addEventListener("touchend", e => {
+  if (x0 === null) return;
+  const dx = e.changedTouches[0].clientX - x0; x0 = null;
+  if (Math.abs(dx) > 50) show(dx < 0 ? 1 : -1);
+});
+document.querySelectorAll(".tab").forEach(b => b.addEventListener("click", () => {
+  cat = b.dataset.cat;
+  document.querySelectorAll(".tab").forEach(x => x.setAttribute("aria-pressed", x === b));
+  reset();
+}));
+reset();
+</script>
+</body>
+</html>
